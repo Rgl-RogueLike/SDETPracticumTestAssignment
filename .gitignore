@@ -52,3 +52,4 @@ Thumbs.db
 # Allure (результаты тестов лучше не хранить в гите, они генерируются заново)
 allure-results/
 allure-report/
+.allure/
