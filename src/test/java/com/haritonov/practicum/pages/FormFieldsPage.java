@@ -60,13 +60,15 @@ public class FormFieldsPage {
         return this;
     }
 
-    public FormFieldsPage selectDrink(String drinkName) {
-        for (WebElement checkbox : drinkCheckboxes) {
-            if (checkbox.getAttribute("value").equals(drinkName)) {
-                if (!checkbox.isSelected()) {
-                    checkbox.click();
+    public FormFieldsPage selectDrink(String... drinkNames) {
+        for (String name : drinkNames) {
+            for (WebElement checkbox : drinkCheckboxes) {
+                if (checkbox.getAttribute("value").equals(name)) {
+                    if (!checkbox.isSelected()) {
+                        checkbox.click();
+                    }
+                    break;
                 }
-                break;
             }
         }
         return this;
