@@ -1,6 +1,7 @@
 package com.haritonov.practicum.pages;
 
 import com.haritonov.practicum.data.ExpectedData;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,7 +14,7 @@ public class FormFieldsPage {
 
     private final WebDriver driver;
 
-    @FindBy(id = "name_input")
+    @FindBy(id = "name-input")
     private WebElement nameInput;
 
     @FindBy(xpath = "//input[@type='password']")
@@ -28,7 +29,7 @@ public class FormFieldsPage {
     @FindBy(css = "#submit-btn")
     private WebElement submitButton;
 
-    @FindBy(css = "#automantion")
+    @FindBy(css = "#automation")
     private WebElement automationDropdown;
 
     @FindBy(xpath = "//input[@name='fav_drink']")
@@ -100,12 +101,12 @@ public class FormFieldsPage {
         return this;
     }
 
-    public void submitForm() {
+    public String submitAndGetAlertText() {
         submitButton.click();
-    }
-
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        alert.accept();
+        return alertText;
     }
 
     public String getAutomationToolsMessage() {
