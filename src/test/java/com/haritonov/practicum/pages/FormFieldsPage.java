@@ -58,8 +58,9 @@ public class FormFieldsPage {
     }
 
     /**
-     * Открывает страницу формы в браузере
-     * @return текущий экземпляр страницы для цепочки вызовов
+     * Открывает страницу формы в браузере.
+     *
+     * @return текущий экземпляр страницы для цепочки вызовов.
      */
     public FormFieldsPage openPage() {
         driver.get(ExpectedData.PAGE_URL);
@@ -67,9 +68,10 @@ public class FormFieldsPage {
     }
 
     /**
-     * Вводит имя в поле Name
-     * @param name имя пользователя
-     * @return текущий экземпляр страницы
+     * Вводит имя в поле Name.
+     *
+     * @param name имя пользователя.
+     * @return текущий экземпляр страницы.
      */
     public FormFieldsPage setName(String name) {
         nameInput.sendKeys(name);
@@ -77,9 +79,10 @@ public class FormFieldsPage {
     }
 
     /**
-     * Вводит пароль в поле Password
-     * @param password пароль
-     * @return текущий экземпляр страницы
+     * Вводит пароль в поле Password.
+     *
+     * @param password пароль.
+     * @return текущий экземпляр страницы.
      */
     public FormFieldsPage setPassword(String password) {
         passwordInput.sendKeys(password);
@@ -88,9 +91,10 @@ public class FormFieldsPage {
 
     /**
      * Выбирает напитки из списка чекбоксов по их значениям.
-     * Позволяет передать несколько напитков сразу
-     * @param drinkNames массив названий напитков
-     * @return текущий экземпляр страницы
+     * Позволяет передать несколько напитков сразу.
+     *
+     * @param drinkNames массив названий напитков.
+     * @return текущий экземпляр страницы.
      */
     public FormFieldsPage selectDrink(String... drinkNames) {
         for (String name : drinkNames) {
@@ -107,9 +111,10 @@ public class FormFieldsPage {
     }
 
     /**
-     * Выбирает цвет из списка радио-кнопок по значению
-     * @param colorName название цвета
-     * @return текущий экземпляр страницы
+     * Выбирает цвет из списка радио-кнопок по значению.
+     *
+     * @param colorName название цвета.
+     * @return текущий экземпляр страницы.
      */
     public FormFieldsPage selectColor(String colorName) {
         for (WebElement radio : colorRadios) {
@@ -122,9 +127,10 @@ public class FormFieldsPage {
     }
 
     /**
-     * Выбирает ответ в выпадающем списке "Do you like automation?"
-     * @param optionText видимый текст опции
-     * @return текущий экземпляр страницы
+     * Выбирает ответ в выпадающем списке "Do you like automation?".
+     *
+     * @param optionText видимый текст опции.
+     * @return текущий экземпляр страницы.
      */
     public FormFieldsPage setLikeAutomation(String optionText) {
         Select select = new Select(automationDropdown);
@@ -133,9 +139,10 @@ public class FormFieldsPage {
     }
 
     /**
-     * Вводит email адрес
-     * @param email email
-     * @return текущий экземпляр страницы
+     * Вводит email адрес.
+     *
+     * @param email email.
+     * @return текущий экземпляр страницы.
      */
     public FormFieldsPage setEmail(String email) {
         emailInput.sendKeys(email);
@@ -143,9 +150,10 @@ public class FormFieldsPage {
     }
 
     /**
-     * Вводит текст в поле Message
-     * @param message текст сообщения
-     * @return текущий экземпляр страницы
+     * Вводит текст в поле Message.
+     *
+     * @param message текст сообщения.
+     * @return текущий экземпляр страницы.
      */
     public FormFieldsPage setMessage(String message) {
         messageField.sendKeys(message);
@@ -153,16 +161,17 @@ public class FormFieldsPage {
     }
 
     /**
-     * Нажимает кнопку Submit без дополнительных проверок
+     * Нажимает кнопку Submit без дополнительных проверок.
      */
     public void submitForm() {
         submitButton.click();
     }
 
     /**
-     * Нажимает кнопку Submit, обрабатывает появившийся Alert и возвращает его текст
-     * Делает скриншот перед кликом для отчета
-     * @return текст сообщения из Alert
+     * Нажимает кнопку Submit, обрабатывает появившийся Alert и возвращает его текст.
+     * Делает скриншот перед кликом для отчета.
+     *
+     * @return текст сообщения из Alert.
      */
     public String submitAndGetAlertText() {
         AllureUtils.takeScreenshot(driver);
@@ -174,9 +183,10 @@ public class FormFieldsPage {
     }
 
     /**
-     * Проверяет, присутствует ли на странице всплывающее окно Alert
-     * Используется для негативного теста
-     * @return true если алерт открыт, false если нет
+     * Проверяет, присутствует ли на странице всплывающее окно Alert.
+     * Используется для негативного теста.
+     *
+     * @return true если алерт открыт, false если нет.
      */
     public String getAutomationToolsMessage() {
         int count = automationToolsList.size();
@@ -188,13 +198,14 @@ public class FormFieldsPage {
             }
         }
 
-        return String.format("Количество инструметов: %d. Инструмент, содержащий наибольшее количество символов: %s.", count, longestTool);
+        return String.format("Количество инструментов: %d. Инструмент, содержащий наибольшее количество символов: %s.", count, longestTool);
     }
 
     /**
-     * Анализирует список инструментов на странице и формирует строку с их количеством
-     * и названием самого длинного инструмента
-     * @return строка с результатами анализа
+     * Анализирует список инструментов на странице и формирует строку с их количеством.
+     * и названием самого длинного инструмента.
+     *
+     * @return строка с результатами анализа.
      */
     public boolean isAlertPresent() {
         try {
