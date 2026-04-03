@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Набор тестов для проверки функциональности страницы "Form Fields".
- * Сюда входят сценарии позитивного и негативного тестирования формы,
+ * Сюда входят сценарии позитивного и негативного тестирования формы.
  */
 @Epic("Practice Automation Forms")
 @Feature("Form Fields Interaction")

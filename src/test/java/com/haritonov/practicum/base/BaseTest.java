@@ -31,7 +31,7 @@ public class BaseTest {
      * Выполняется один раз перед всеми тестами.
      */
     @BeforeAll
-    public static void setUpDriver(){
+    public static void setUpDriver() {
         WebDriverManager.chromedriver().setup();
     }
 
