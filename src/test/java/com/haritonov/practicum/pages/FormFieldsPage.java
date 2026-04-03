@@ -1,7 +1,9 @@
 package com.haritonov.practicum.pages;
 
 import com.haritonov.practicum.data.ExpectedData;
+import com.haritonov.practicum.utils.AllureUtils;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -101,7 +103,12 @@ public class FormFieldsPage {
         return this;
     }
 
+    public void submitForm() {
+        submitButton.click();
+    }
+
     public String submitAndGetAlertText() {
+        AllureUtils.takeScreenshot(driver);
         submitButton.click();
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
@@ -120,5 +127,14 @@ public class FormFieldsPage {
         }
 
         return String.format("Количество инструметов: %d. Инструмент, содержащий наибольшее количество символов: %s.", count, longestTool);
+    }
+
+    public boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
     }
 }
