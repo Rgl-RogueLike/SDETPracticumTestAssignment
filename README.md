@@ -1,67 +1,58 @@
-Practice Automation: Form Fields Testing
+# Practice Automation: Form Fields
 
-Этот проект содержит автотесты для проверки функциональности веб-формы на сайте practice-automation.com.
-Технологический стек
+Автотесты для страницы [Form Fields](https://practice-automation.com/form-fields/) на Java. Проект проверяет отправку формы с валидными данными и поведение формы при пропуске обязательного поля.
 
-    Java 17
-    Selenium WebDriver (управление браузером Chrome)
-    JUnit 5 (фреймворк для тестов)
-    Maven (сборщик проекта)
-    Allure Report (отчетность и прикрепление скриншотов)
-    JavaFaker (генерация тестовых данных)
+## Что проверяется
 
-Как запустить
+| Тест | Сценарий | Ожидаемый результат |
+|---|---|---|
+| `positiveSubmitFormTest` | Заполнение всех полей случайными данными, выбор напитков, цвета и ответа «Do you like automation?», отправка формы | Появляется Alert с текстом `Message received!` |
+| `negativeSubmitFormTest` | Отправка формы без обязательного поля `Name`, остальные поля заполнены | Форма не отправляется, Alert отсутствует |
 
-    Клонировать репозиторий.
-    Убедиться, что установлен JDK 17.
-    Выполнить команду:
+В позитивном тесте количество инструментов и самый длинный инструмент вычисляются со страницы, а не задаются константами.
 
-    mvn clean test
+## Стек
 
-    Для генерации и просмотра отчета:
+- Java 17
+- Maven
+- Selenium WebDriver 4
+- JUnit 6 (Jupiter)
+- Page Object + PageFactory + Fluent-цепочки
+- Allure (Epic / Feature / Story / Severity, скриншоты)
+- JavaFaker — генерация тестовых данных
+- WebDriverManager — автоматическая установка драйвера
 
-    mvn allure:serve
+## Структура проекта
 
-1. Позитивный сценарий: Успешная отправка формы
+```text
+src/test/java/com/haritonov/practicum/
+├── base/BaseTest.java          # жизненный цикл WebDriver, скриншоты
+├── data/ExpectedData.java      # URL и ожидаемые значения
+├── pages/FormFieldsPage.java   # Page Object страницы формы
+├── tests/FormFieldsTest.java   # позитивный и негативный тесты
+└── utils/
+    ├── AllureUtils.java        # прикрепление скриншота к отчёту
+    └── DataGenerator.java      # генерация имени, пароля и email
+```
 
-Цель: Проверить, что форма корректно обрабатывает валидные данные.
+## Запуск
 
-Предусловия:
+Требования: JDK 17, Maven, установленный Google Chrome.
 
-    Открыта страница https://practice-automation.com/form-fields/.
+```bash
+mvn clean test
+```
 
-Шаги:
+Отчёт Allure:
 
-    Сгенерировать случайные Name, Password, Email.
-    Заполнить поле Name.
-    Заполнить поле Password.
-    Выбрать напитки: Milk и Coffee.
-    Выбрать цвет: Yellow.
-    Выбрать "Do you like automation?": Yes.
-    В поле Message автоматически вставить текст: "Количество инструментов: X. Самый длинный: [Название].".
-    Нажать кнопку Submit.
+```bash
+mvn allure:serve
+```
 
-Ожидаемый результат:
+Пример отчёта — в [`screenshots/ScreenshotAllure.png`](screenshots/ScreenshotAllure.png).
 
-    Появляется системное окно (Alert) с текстом "Message received!".
-    Данные успешно приняты системой.
+## Особенности
 
-2. Негативный сценарий: Отправка без обязательного поля
-
-Цель: Проверить валидацию обязательного поля "Name".
-
-Предусловия:
-
-    Открыта страница формы.
-
-Шаги:
-
-    Оставить поле Name пустым (обязательное поле с атрибутом required).
-    Заполнить остальные поля (Password, Email, Message и т.д.).
-    Нажать кнопку Submit.
-
-Ожидаемый результат:
-
-    Форма не отправляется.
-    Окно с сообщением об успехе ("Message received!") не появляется.
-    Браузер блокирует отправку и фокус возвращается на поле Name.
+- Браузер — Chrome, драйвер поднимается через WebDriverManager.
+- Скриншот делается после каждого теста и прикрепляется к Allure-отчёту.
+- Внешний сайт может менять разметку — при падении сначала проверяйте актуальность локаторов в `FormFieldsPage`.
